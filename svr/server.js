@@ -55,7 +55,7 @@ bot.onText(/\/message (.+)/, (msg, match) => {
 	lcd.print(resp);
 });
 
-bot.onText(/\/clear (.+)/, (msg, match) => {
+bot.onText(/\/clear/, (msg, match) => {
     // 'msg' is the received Message from Telegram
     // 'match' is the result of executing the regexp above on the text content
     // of the message
