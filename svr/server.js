@@ -16,7 +16,7 @@ const bot = new TelegramBot(token, {
 });
 
 app.get("/", (request, response) => {
-    response.status(404).send("Not Found")
+    response.status(200).send("Server is running!")
 })
 
 app.get("/recognize/:person", (request, response) => {
@@ -25,18 +25,18 @@ app.get("/recognize/:person", (request, response) => {
     } = request.params;
 
     /*
-    TODO: Recongnize person,
+    Recongnize person,
     Send a message on telegram.
     */
-    response.status(200).send("Recognized " + person.toLowerCase());
+
+   let chatId = "-397620800"
+
+    response.status(200).send({"error": false, "chatId": chatId});
 	if(person == "unknown"){
-		bot.sendMessage("-397620800", `Unknown person recognized on ${new Date().toDateString()}. Use the /message command to display a message`)
+		bot.sendMessage(chatId, `Unknown person recognized on ${new Date().toDateString()}. Use the /message command to display a message`)
 	}
                     
 })
-
-// TODO: Complete post route!
-// app.post("/send")
 
 app.listen(PORT, IP_ADDR, _ => console.log(`Running on ${IP_ADDR}:${PORT}`))
 
@@ -53,4 +53,17 @@ bot.onText(/\/message (.+)/, (msg, match) => {
 
 	lcd.clear();
 	lcd.print(resp);
+});
+
+bot.onText(/\/clear (.+)/, (msg, match) => {
+    // 'msg' is the received Message from Telegram
+    // 'match' is the result of executing the regexp above on the text content
+    // of the message
+
+    const chatId = msg.chat.id;
+    const resp = match[1]; // the captured "whatever"
+
+    // send back the matched "whatever" to the chat
+    bot.sendMessage(chatId, `Clearing text from LCD!`);
+	lcd.clear();
 });
