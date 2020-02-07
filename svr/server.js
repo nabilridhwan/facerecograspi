@@ -1,13 +1,12 @@
 let express = require("express");
 let app = express();
-let PORT = process.env.PORT || 3000
 const TelegramBot = require('node-telegram-bot-api');
 const LCD = require('lcdi2c');
 const lcd = new LCD(1, 0x27, 16, 2);
 const ip = require('ip');
-let IP_ADDR = ip.address();
 
-console.log(IP_ADDR)
+const PORT = process.env.PORT || 3000
+const IP_ADDR = ip.address();
 
 const token = "1012969600:AAHbFDlDgw20LJwzYyQ7rnJGXl-ulIg_3BM";
 
@@ -39,7 +38,7 @@ app.get("/recognize/:person", (request, response) => {
 // TODO: Complete post route!
 // app.post("/send")
 
-app.listen(PORT, "192.168.0.160", _ => console.log(`Listening on port ${PORT}`))
+app.listen(PORT, IP_ADDR, _ => console.log(`Running on ${IP_ADDR}:${PORT}`))
 
 bot.onText(/\/message (.+)/, (msg, match) => {
     // 'msg' is the received Message from Telegram
