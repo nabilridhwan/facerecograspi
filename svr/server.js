@@ -4,6 +4,10 @@ let PORT = process.env.PORT || 3000
 const TelegramBot = require('node-telegram-bot-api');
 const LCD = require('lcdi2c');
 const lcd = new LCD(1, 0x27, 16, 2);
+const ip = require('ip');
+let IP_ADDR = ip.address();
+
+console.log(IP_ADDR)
 
 const token = "1012969600:AAHbFDlDgw20LJwzYyQ7rnJGXl-ulIg_3BM";
 
