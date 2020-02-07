@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3000
 const IP_ADDR = ip.address();
 
 const token = "1012969600:AAHbFDlDgw20LJwzYyQ7rnJGXl-ulIg_3BM";
+const groupChatID = "-397620800"
 
 // Created instance of TelegramBot
 const bot = new TelegramBot(token, {
@@ -29,11 +30,9 @@ app.get("/recognize/:person", (request, response) => {
     Send a message on telegram.
     */
 
-   let chatId = "-397620800"
-
-    response.status(200).send({"error": false, "chatId": chatId});
+    response.status(200).send({"error": false, "chatId": groupChatID});
 	if(person == "unknown"){
-		bot.sendMessage(chatId, `Unknown person recognized on ${new Date().toDateString()}. Use the /message command to display a message`)
+		bot.sendMessage(groupChatID, `Unknown person recognized on ${new Date().toDateString()}. Use the /message command to display a message`)
 	}
                     
 })

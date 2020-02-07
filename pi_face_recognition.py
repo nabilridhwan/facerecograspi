@@ -10,6 +10,9 @@ import imutils
 import pickle
 import time
 import cv2
+import requests
+
+HOST = "http://192.168.160:3000"
 
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
@@ -30,7 +33,6 @@ print("[INFO] starting video stream...")
 # vs = VideoStream(src=0).start()
 vs = VideoStream(usePiCamera=True).start()
 time.sleep(2.0)
-
 # start the FPS counter
 fps = FPS().start()
 
@@ -48,8 +50,8 @@ while True:
 
     # detect faces in the grayscale frame
     rects = detector.detectMultiScale(gray, scaleFactor=1.1,
-                                      minNeighbors=5, minSize=(30, 30),
-                                      flags=cv2.CASCADE_SCALE_IMAGE)
+                                    minNeighbors=5, minSize=(30, 30),
+                                    flags=cv2.CASCADE_SCALE_IMAGE)
 
     # OpenCV returns bounding box coordinates in (x, y, w, h) order
     # but we need them in (top, right, bottom, left) order, so we
@@ -65,7 +67,7 @@ while True:
         # attempt to match each face in the input image to our known
         # encodings
         matches = face_recognition.compare_faces(data["encodings"],
-                                                 encoding)
+                                                encoding)
         name = "Unknown"
 
         # check to see if we have found a match
@@ -87,10 +89,11 @@ while True:
             # will select first entry in the dictionary)
             name = max(counts, key=counts.get)
 
-            if name is "Unknown":
-                print("Unknown")
-            else:
-                print(name)
+        if name is "Unknown":
+            # Make a request to the server
+            requests.get(HOST + "/recognize/unknown")
+        else:
+            print(name)
 
         # update the list of names
         names.append(name)
@@ -99,7 +102,7 @@ while True:
     for ((top, right, bottom, left), name) in zip(boxes, names):
         # draw the predicted face name on the image
         cv2.rectangle(frame, (left, top), (right, bottom),
-                      (0, 255, 0), 2)
+                    (0, 255, 0), 2)
         y = top - 15 if top - 15 > 15 else top + 15
         cv2.putText(frame, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX,
                     0.75, (0, 255, 0), 2)
@@ -111,14 +114,6 @@ while True:
     # if the `q` key was pressed, break from the loop
     if key == ord("q"):
         break
-
-    # update the FPS counter
-    fps.update()
-
-# stop the timer and display FPS information
-fps.stop()
-print("[INFO] elasped time: {:.2f}".format(fps.elapsed()))
-print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
 
 # do a bit of cleanup
 cv2.destroyAllWindows()
