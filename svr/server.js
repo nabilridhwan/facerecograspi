@@ -4,11 +4,12 @@ const TelegramBot = require('node-telegram-bot-api');
 const LCD = require('lcdi2c');
 const lcd = new LCD(1, 0x27, 16, 2);
 const ip = require('ip');
+require('dotenv').config();
 
 const PORT = process.env.PORT || 3000
 const IP_ADDR = ip.address();
 
-const token = "1012969600:AAHbFDlDgw20LJwzYyQ7rnJGXl-ulIg_3BM";
+const token = process.env.BOT_TOKEN;
 let globalChatID;
 
 // Created instance of TelegramBot
@@ -29,14 +30,14 @@ app.get("/recognize/:person", (request, response) => {
     Recongnize person,
     Send a message on telegram.
     */
+    response.status(200).send({"error": false, "chatId": globalChatID});\
 
-    response.status(200).send({"error": false, "chatId": globalChatID});
 	if(person == "unknown"){
 		bot.sendMessage(globalChatID, `Unknown person recognized on ${new Date().toDateString()}. Use the /message command to display a message`)
 	}
 })
 
-app.listen(PORT, IP_ADDR, _ => console.log(`Running on ${IP_ADDR}:${PORT}`))
+app.listen(PORT, IP_ADDR, _ => console.log(`Running on http://${IP_ADDR}:${PORT}`))
 
 bot.onText(/\/start/, (msg, match) => {
     // 'msg' is the received Message from Telegram
@@ -71,7 +72,6 @@ bot.onText(/\/clear/, (msg, match) => {
     // of the message
 
     globalChatID = msg.chat.id;
-    const resp = match[1]; // the captured "whatever"
 
     // send back the matched "whatever" to the chat
     bot.sendMessage(globalChatID, `Clearing text from LCD!`);

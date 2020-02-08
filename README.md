@@ -1,29 +1,34 @@
 # facerecograspi
-The project uses Node.JS for the middleware server. When the face recognition detects an unknown face, it will send a GET request to the server endpoint.
+The project uses Node.JS for the middleware server. When the face recognition detects an unknown face, it will send a GET request to the server endpoint that is coded using Node JS using the Express framework.
 
-Information is accurate as of February 7, 2020.
+Information is accurate as of February 8, 2020.
 
 ## Before proceeding
--   Please setup your telegram bot! Make sure that you set the bot's privacy to disabled using `@botfather`.
--   Get your API key or Token key and head over to `./svr/server.js`
-    -   Change the value of the `token` variable (on line 11) to your token enclosed in `""`. The line should look like: `let token = "token_here"`
--   Get your Group Chat ID so that the Bot can respond to your messages and execute commands by following the instructions below:
-    1.  Post one message from User to the Bot.
-    2.  Open https://api.telegram.org/bot<Bot_token_from_the_step-above>/getUpdates page.
-    3.  Copy the `chatId` and set it as the `chatId` variable value on `line 12`.
+-   Please setup your telegram bot! Make sure that you set the bot's privacy to `disabled` using `@botfather`.
 
-## Setup on Local network
-1.  Make sure that all dependencies are installed (both Python and Javascript). For Javascript dependencies, head into `./svr` and run `npm install`. Make sure you got Python installed as the library `lcdi2c` needs it!
-2.  Run the server by running `node ./svr/server.js`
-3.  Edit `pi_face_recognition.py (line 15)` to change the `HOST` variable to the output given in step 2.
+## Running and Installing Dependencies
+1.  Make sure that all dependencies are installed (both from the root folder and `svr` folder) (run `npm install` from the `svr` folder)
+1.  Rename the `.envdemo` at `./svr` to `.env`
+2.  Replace `<TOKEN>` in `.envdemo` with your bot's token!
+3.  Run the server by running `node ./svr/server.js`
+4.  Change the `HOST` variable in `pi_face_recognition.py (line 15)` from the root folder to the output given in step 4.
     ```
     // OUTPUT
-    > Running on 192.168.0.152:3000
+    > Running on http://192.168.0.152:3000
     ```
-    -   Copy the `192.168.0.152:3000` part, append `http://` on the front and set it to the value of the `HOST` variable. So it should look something like:
-        ```python
-        HOST="http://192.168.0.152:3000"
-        ```
-4.  Test that the server is working by going to web server's address above. You should get a response like: `Server is running!`
-5.  After running the webserver and everything is fine, run the face recognition Python file by running `python3 pi_face_recognition.py --cascade haarcascade_frontalface_default.xml --encodings encodings.pickle`
-6.  Everything should work!
+    -   The `HOST` variable should look something like `HOST=http://192.168.0.152:3000`
+5.  Test that the server is working by going to web server's address above. You should get a response like: `Server is running!`
+6.  After running the webserver and everything is fine, run the face recognition Python file by running `python3 pi_face_recognition.py --cascade haarcascade_frontalface_default.xml --encodings encodings.pickle`
+
+## Setting up the bot
+1.  Create a new group and add the Bot! The Bot can only be used in one group at a time!
+2.  Type in `/start` in the group and the bot should respond with `[INFO] Setting global chat ID`
+3.  Done! The bot should respond to messages.
+
+## Bot Commands
+-   `/start`
+    -   Set-up the bot. REQUIRED if bot is added to a new group!
+-   `/message <message_here>`
+    -   Displays `<message_here>` on the LCD. (16 X 2)
+-   `/clear`
+    -   Clears any message from the LCD. (16 X 2)
