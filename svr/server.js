@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000
 const IP_ADDR = ip.address();
 
 const token = "1012969600:AAHbFDlDgw20LJwzYyQ7rnJGXl-ulIg_3BM";
-const groupChatID = "-397620800"
+const globalChatID;
 
 // Created instance of TelegramBot
 const bot = new TelegramBot(token, {
@@ -30,25 +30,35 @@ app.get("/recognize/:person", (request, response) => {
     Send a message on telegram.
     */
 
-    response.status(200).send({"error": false, "chatId": groupChatID});
+    response.status(200).send({"error": false, "chatId": globalChatID});
 	if(person == "unknown"){
-		bot.sendMessage(groupChatID, `Unknown person recognized on ${new Date().toDateString()}. Use the /message command to display a message`)
+		bot.sendMessage(globalChatID, `Unknown person recognized on ${new Date().toDateString()}. Use the /message command to display a message`)
 	}
-                    
 })
 
 app.listen(PORT, IP_ADDR, _ => console.log(`Running on ${IP_ADDR}:${PORT}`))
+
+bot.onText(/\/start/, (msg, match) => {
+    // 'msg' is the received Message from Telegram
+    // 'match' is the result of executing the regexp above on the text content
+    // of the message
+
+    globalChatID = msg.chat.id;
+
+    // send back the matched "whatever" to the chat
+    bot.sendMessage(globalChatID, `[INFO] Setting global chat ID`);
+});
 
 bot.onText(/\/message (.+)/, (msg, match) => {
     // 'msg' is the received Message from Telegram
     // 'match' is the result of executing the regexp above on the text content
     // of the message
 
-    const chatId = msg.chat.id;
+    globalChatID = msg.chat.id;
     const resp = match[1]; // the captured "whatever"
 
     // send back the matched "whatever" to the chat
-    bot.sendMessage(chatId, `Sending "${resp}" to LCD`);
+    bot.sendMessage(globalChatID, `Sending "${resp}" to LCD`);
 
 	lcd.clear();
 	lcd.print(resp);
@@ -59,10 +69,10 @@ bot.onText(/\/clear/, (msg, match) => {
     // 'match' is the result of executing the regexp above on the text content
     // of the message
 
-    const chatId = msg.chat.id;
+    globalChatID = msg.chat.id;
     const resp = match[1]; // the captured "whatever"
 
     // send back the matched "whatever" to the chat
-    bot.sendMessage(chatId, `Clearing text from LCD!`);
+    bot.sendMessage(globalChatID, `Clearing text from LCD!`);
 	lcd.clear();
 });
