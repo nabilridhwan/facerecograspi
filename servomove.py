@@ -6,7 +6,7 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(servoPIN, GPIO.OUT)
 
 p = GPIO.PWM(servoPIN, 60) # GPIO 17 for PWM with 50Hz
-p.start(7.5) # Initialization
+p.start(1.5) # Initialization
 
 try:
     while True:
