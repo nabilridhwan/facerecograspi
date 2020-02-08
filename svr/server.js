@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000
 const IP_ADDR = ip.address();
 
 const token = "1012969600:AAHbFDlDgw20LJwzYyQ7rnJGXl-ulIg_3BM";
-const globalChatID;
+let globalChatID;
 
 // Created instance of TelegramBot
 const bot = new TelegramBot(token, {
