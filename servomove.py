@@ -10,10 +10,11 @@ p.start(1.5) # Initialization
 
 try:
     while True:
-        p.ChangeDutyCycle(2)
-        time.sleep(1)
-        p.ChangeDutyCycle(1)
-        time.sleep(1)
+        print("hello!")
+        # p.ChangeDutyCycle(2)
+        # time.sleep(1)
+        # p.ChangeDutyCycle(1)
+        # time.sleep(1)
 
 except KeyboardInterrupt:
     GPIO.cleanup()
