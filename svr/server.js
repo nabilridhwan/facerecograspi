@@ -30,7 +30,7 @@ app.get("/recognize/:person", (request, response) => {
     Recongnize person,
     Send a message on telegram.
     */
-    response.status(200).send({"error": false, "chatId": globalChatID});\
+    response.status(200).send({"error": false, "chatId": globalChatID});
 
 	if(person == "unknown"){
 		bot.sendMessage(globalChatID, `Unknown person recognized on ${new Date().toDateString()}. Use the /message command to display a message`)
