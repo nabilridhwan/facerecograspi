@@ -17,9 +17,9 @@ def lock():
     p.ChangeDutyCycle(12.5)
     time.sleep(1)
 
-try:
-    while True:
-        unlock()
-        lock()
-except KeyboardInterrupt:
-    GPIO.cleanup()
+# try:
+#     while True:
+#         unlock()
+#         lock()
+# except KeyboardInterrupt:
+#     GPIO.cleanup()

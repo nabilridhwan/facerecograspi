@@ -4,6 +4,7 @@
 # import the necessary packages
 from imutils.video import VideoStream
 from imutils.video import FPS
+from servomove import unlock, lock
 import face_recognition
 import argparse
 import imutils
@@ -90,10 +91,12 @@ while True:
             name = max(counts, key=counts.get)
 
         if name is "Unknown":
+            lock()
             # Make a request to the server
             requests.get(HOST + "/recognize/unknown")
         else:
             print(name)
+            unlock()
 
         # update the list of names
         names.append(name)
