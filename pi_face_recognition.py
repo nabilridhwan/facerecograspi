@@ -119,5 +119,6 @@ while True:
         break
 
 # do a bit of cleanup
+GPIO.cleanup()
 cv2.destroyAllWindows()
 vs.stop()
