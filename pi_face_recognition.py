@@ -5,6 +5,7 @@
 from imutils.video import VideoStream
 from imutils.video import FPS
 from servomove import unlock, lock
+import RPi.GPIO as GPIO
 import face_recognition
 import argparse
 import imutils
@@ -90,13 +91,12 @@ while True:
             # will select first entry in the dictionary)
             name = max(counts, key=counts.get)
 
-        if name is "Unknown":
-            lock()
-            # Make a request to the server
-            requests.get(HOST + "/recognize/unknown")
-        else:
-            print(name)
+        if name != "Unknown":
             unlock()
+            print(name)
+        else:
+            requests.get(HOST + "/recognize/unknown")
+            lock()
 
         # update the list of names
         names.append(name)
