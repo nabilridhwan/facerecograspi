@@ -6,18 +6,20 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(servoPIN, GPIO.OUT)
 
 p = GPIO.PWM(servoPIN, 50) # GPIO 17 for PWM with 50Hz
-p.start(7.5) # Initialization
+p.start(7.5) # Initialization Reset Position
+# 10 - 90 degrees
 
-# We need a 1.5 ms pulse to centre the servo, or a Duty Cycle = 0.0015 * 50 = 0.075 (i.e 7.5%).
-# Similarly, 1 ms pulse (- 90 degrees) requires a Duty Cycle = 0.001 * 50 = 5%; and
-# 2 ms pulse (+ 90 degrees), Duty Cycle = 0.002 * 50 = 10%
+def unlock:
+    p.ChangeDutyCycle(7.5)
+    time.sleep(1)
+
+def lock:
+    p.ChangeDutyCycle(12.5)
+    time.sleep(1)
 
 try:
     while True:
-        p.ChangeDutyCycle(10)
-        time.sleep(1)
-        p.ChangeDutyCycle(7.5)
-        time.sleep(1)
-
+        unlock()
+        lock()
 except KeyboardInterrupt:
     GPIO.cleanup()
