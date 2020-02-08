@@ -47,6 +47,7 @@ bot.onText(/\/start/, (msg, match) => {
 
     // send back the matched "whatever" to the chat
     bot.sendMessage(globalChatID, `[INFO] Setting global chat ID`);
+    console.log(`globalChatID: ${globalChatID}`)
 });
 
 bot.onText(/\/message (.+)/, (msg, match) => {
