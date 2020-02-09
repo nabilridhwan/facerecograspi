@@ -1,7 +1,20 @@
 # facerecograspi
 The project uses Node.JS for the middleware server. When the face recognition detects an unknown face, it will send a GET request to the server endpoint that is coded using Node JS using the Express framework.
 
-Information is accurate as of February 8, 2020.
+Information is accurate as of February 9, 2020.
+
+## Pins (so you do not need to re-adjust the code)
+-   LCD (i2c, 16 x 2)
+    -   COMPONENT -> BREAKOUT BOARD
+    -   GND -> GND
+    -   VCC -> 5V
+    -   SDA -> SDA1
+    -   SCL -> SCL1
+-   Servo Motor (Tower Pro MG90S)
+    -   COMPONENT -> BREAKOUT BOARD
+    -   BROWN -> GND
+    -   RED -> 3.3V
+    -   ORANGE/YELLOW -> GPIO24
 
 ## Before proceeding
 -   Please setup your telegram bot! Make sure that you set the bot's privacy to `disabled` using `@botfather`.
@@ -27,7 +40,7 @@ Information is accurate as of February 8, 2020.
 
 ## Bot Commands
 -   `/start`
-    -   Set-up the bot. REQUIRED if bot is added to a new group!
+    -   Set-up the bot. REQUIRED if bot is added to a new group and everytime the server is started (even though restarted!)!
 -   `/message <message_here>`
     -   Displays `<message_here>` on the LCD. (16 X 2)
 -   `/clear`
