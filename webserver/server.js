@@ -6,7 +6,6 @@ const lcd = new LCD(1, 0x27, 16, 2);
 const ip = require('ip');
 require('dotenv').config();
 
-
 const PORT = process.env.PORT || 3000
 const IP_ADDR = ip.address();
 
@@ -32,6 +31,8 @@ app.get("/recognize/:person", (request, response) => {
     Send a message on telegram.
     */
     response.status(200).send({"error": false, "chatId": globalChatID});
+
+    let person = person.toLowerCase()
 
 	if(person == "unknown"){
         bot.sendMessage(globalChatID, `Unknown person recognized on ${new Date().toDateString()}. Use the /message command to display a message`)
