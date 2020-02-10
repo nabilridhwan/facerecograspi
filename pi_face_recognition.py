@@ -95,11 +95,11 @@ while True:
 
         if name != "Unknown":
             unlock()
-            buzzerSound(1, 0.5);
+            buzzerSound(1)
         else:
             requests.get(HOST + "/recognize/unknown")
             lock()
-            buzzerSound(2, 0.5);
+            buzzerSound(2)
 
 
         # update the list of names
