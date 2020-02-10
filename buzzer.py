@@ -1,9 +1,9 @@
 import time
 import RPi.GPIO as GPIO
 
-GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BOARD)
 
-buzzerPin = 4
+buzzerPin = 7
 
 GPIO.setup(buzzerPin, GPIO.OUT)
 
