@@ -8,7 +8,7 @@ buzzerPin = 4
 GPIO.setup(buzzerPin, GPIO.OUT)
 
 def buzzerSound(amt, dlay):
-    for index in rance (0,amt):
+    for index in range (0,amt):
         GPIO.output(buzzerPin, True)
         sleep(dlay)
         GPIO.output(buzzerPin, False)
