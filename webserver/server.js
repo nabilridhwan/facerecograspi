@@ -1,10 +1,13 @@
 let express = require("express");
 let app = express();
 const TelegramBot = require('node-telegram-bot-api');
+const GlobalChatIDHandler = require('./handler')
 const LCD = require('lcdi2c');
 const lcd = new LCD(1, 0x27, 16, 2);
 const ip = require('ip');
 require('dotenv').config();
+
+let gcid_handler = new GlobalChatIDHandler('./CONFIG.json')
 
 const PORT = process.env.PORT || 3000
 const IP_ADDR = ip.address();
