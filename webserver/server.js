@@ -44,7 +44,7 @@ app.get("/recognize/:person", (request, response) => {
     }
 })
 
-app.listen(PORT, IP_ADDR, _ => console.log(`Running on http://${IP_ADDR}:${PORT}. Run '/start' on the Telegram bot to get started`))
+app.listen(PORT, IP_ADDR, _ => console.log(`Running on http://${IP_ADDR}:${PORT}. Run '/configure' on the Telegram bot to get started. Set http://${IP_ADDR}:${PORT} as HOST's value on ../CONFIG.py`))
 
 bot.onText(/\/configure/, (msg, match) => {
     // 'msg' is the received Message from Telegram
