@@ -5,6 +5,7 @@
 from imutils.video import VideoStream
 from imutils.video import FPS
 from servomove import unlock, lock
+from buzzer import buzzerSound
 import RPi.GPIO as GPIO
 import face_recognition
 import argparse
@@ -14,7 +15,8 @@ import time
 import cv2
 import requests
 
-HOST = "http://192.168.160:3000"
+# Import Variables!
+from CONFIG import HOST
 
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
@@ -93,10 +95,12 @@ while True:
 
         if name != "Unknown":
             unlock()
-            print(name)
+            buzzerSound(1, 0.5);
         else:
             requests.get(HOST + "/recognize/unknown")
             lock()
+            buzzerSound(2, 0.5);
+
 
         # update the list of names
         names.append(name)
