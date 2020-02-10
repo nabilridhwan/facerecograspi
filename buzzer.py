@@ -7,7 +7,10 @@ buzzerPin = 4
 
 GPIO.setup(buzzerPin, GPIO.OUT)
 
-def buzzerSound(amt, dlay):
+def buzzerSound(amt):
+
+    dly = 0.1
+
     for index in range (0,amt):
         GPIO.output(buzzerPin, True)
         time.sleep(dlay)
@@ -16,6 +19,6 @@ def buzzerSound(amt, dlay):
 
 if __name__ == "__main__":
     try:
-        buzzerSound(2, 0.5)
+        buzzerSound(2)
     except KeyboardInterrupt:
         GPIO.cleanup()
