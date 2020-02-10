@@ -15,4 +15,7 @@ def buzzerSound(amt, dlay):
         sleep(dlay)
 
 if __name__ == "__main__":
-    buzzerSound(2, 0.5)
+    try:
+        buzzerSound(2, 0.5)
+    except KeyboardInterrupt:
+        GPIO.cleanup()
