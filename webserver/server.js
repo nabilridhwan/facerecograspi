@@ -36,13 +36,18 @@ app.get("/recognize/:person", (request, response) => {
     response.status(200).send({"error": false, "chatId": globalChatID});
 
 	if(person == "unknown"){
-		bot.sendMessage(globalChatID, `Unknown person recognized on ${new Date().toDateString()}. Use the /message command to display a message`)
-	}
+        bot.sendMessage(globalChatID, `Unknown person recognized on ${new Date().toDateString()}. Use the /message command to display a message`)
+        lcd.clear();
+        lcd.print(`Access Denied!`);
+	}else{
+        lcd.clear();
+        lcd.print(`Access Granted!`);
+    }
 })
 
-app.listen(PORT, IP_ADDR, _ => console.log(`Running on http://${IP_ADDR}:${PORT}`))
+app.listen(PORT, IP_ADDR, _ => console.log(`Running on http://${IP_ADDR}:${PORT}. Run '/start' on the Telegram bot to get started`))
 
-bot.onText(/\/start/, (msg, match) => {
+bot.onText(/\/configure/, (msg, match) => {
     // 'msg' is the received Message from Telegram
     // 'match' is the result of executing the regexp above on the text content
     // of the message
@@ -50,7 +55,7 @@ bot.onText(/\/start/, (msg, match) => {
     globalChatID = msg.chat.id;
 
     // send back the matched "whatever" to the chat
-    bot.sendMessage(globalChatID, `[INFO] Setting global chat ID`);
+    bot.sendMessage(globalChatID, `[INFO] Configuring and starting up!`);
     console.log(`globalChatID: ${globalChatID}`)
 });
 
