@@ -32,7 +32,7 @@ app.get("/recognize/:person", (request, response) => {
     */
     response.status(200).send({"error": false, "chatId": globalChatID});
 
-    let person = person.toLowerCase()
+    person = person.toLowerCase()
 
 	if(person == "unknown"){
         bot.sendMessage(globalChatID, `Unknown person recognized on ${new Date().toDateString()}. Use the /message command to display a message`)
