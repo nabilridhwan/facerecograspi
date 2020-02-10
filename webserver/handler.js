@@ -45,5 +45,3 @@ class GlobalChatIDHandler{
 }
 
 // module.exports = ConfigHandler
-
-new ConfigHandler('./cfg.json')
