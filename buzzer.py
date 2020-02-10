@@ -10,9 +10,9 @@ GPIO.setup(buzzerPin, GPIO.OUT)
 def buzzerSound(amt, dlay):
     for index in range (0,amt):
         GPIO.output(buzzerPin, True)
-        sleep(dlay)
+        time.sleep(dlay)
         GPIO.output(buzzerPin, False)
-        sleep(dlay)
+        time.sleep(dlay)
 
 if __name__ == "__main__":
     try:
