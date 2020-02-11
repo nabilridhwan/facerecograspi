@@ -15,22 +15,30 @@ Information is accurate as of February 9, 2020.
     -   BROWN -> GND
     -   RED -> 3.3V
     -   ORANGE/YELLOW -> GPIO24
+-   Piezo Buzzer
+    -   COMPONENT -> BREAKOUT BOARD
+    -   POSITIVE -> GPIO4
+    -   NEGATIVE -> GND
 
 ## Before proceeding
--   Please setup your telegram bot! Make sure that you set the bot's privacy to `disabled` using `@botfather`.
+1.   Please setup your telegram bot!\
+2.  Make sure that you set the bot's privacy to `disabled` using `@botfather`.
+2.  Add your bot to a group chat!
+3.  Make the bot as an administrator of the group!
 
-## Running and Installing Dependencies
-1.  Make sure that all dependencies are installed (both from the root folder and `svr` folder) (run `npm install` from the `svr` folder)
-1.  Rename the `.envdemo` at `./svr` to `.env`
-2.  Replace `<TOKEN>` in `.envdemo` with your bot's token!
-3.  Run the server by running `node ./svr/server.js`
-4.  Change the `HOST` variable in `pi_face_recognition.py (line 15)` from the root folder to the output given in step 4.
+## Process of running the project
+1.  If you just cloned the repository, make sure that all dependencies are installed (both from the root folder and `webserver` folder) (run `npm install` from the `webserver` folder)
+1.  Create a `.env` file at `./webserver` containing:
+    -   `BOT_TOKEN=<your_bot's_token>`
+3.  Run the server by running `node ./webserver/server.js`
+4.  Change the `HOST` variable in `./CONFIG.py` to the output given in step 4.
     ```
     // OUTPUT
-    > Running on http://192.168.0.152:3000
+    > Set `http://192.168.0.152:3000` as the HOST variable in ../CONFIG.py
     ```
-    -   The `HOST` variable should look something like `HOST=http://192.168.0.152:3000`
+    -   The `CONFIG.py` file should look something like `HOST=http://192.168.0.152:3000`
 5.  Test that the server is working by going to web server's address above. You should get a response like: `Server is running!`
+6.  Type in `/configure` in the Telegram group chat, this is required everytime the webserver is setup.
 6.  After running the webserver and everything is fine, run the face recognition Python file by running `python3 pi_face_recognition.py --cascade haarcascade_frontalface_default.xml --encodings encodings.pickle`
 
 ## Setting up the bot
