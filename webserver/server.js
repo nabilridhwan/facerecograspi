@@ -69,8 +69,13 @@ bot.onText(/\/message (.+)/, (msg, match) => {
     // send back the matched "whatever" to the chat
     bot.sendMessage(globalChatID, `Sending "${resp}" to LCD`);
 
-	lcd.clear();
-	lcd.print(resp);
+    lcd.clear();
+    
+    if(resp.length >= 16){
+        lcd.println(resp.substring(16), 2)
+    }
+
+    lcd.println(resp, 1);
 });
 
 bot.onText(/\/clear/, (msg, match) => {
